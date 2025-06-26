@@ -1,0 +1,2 @@
+# MerNote
+MERN Notes webapp
