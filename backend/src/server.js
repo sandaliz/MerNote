@@ -60,7 +60,6 @@ connectDB().then(() => { //1st connect db then, listen - better option
     });
 });
 
-console.log("MONGO_URI:", process.env.MONGO_URI);
-console.log("REDIS_URL:", process.env.UPSTASH_REDIS_REST_URL);
+
 
 
