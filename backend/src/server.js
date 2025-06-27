@@ -1,7 +1,7 @@
 // Description: This code sets up a basic Express server that listens on port 5001.
 // It imports the Express library, creates an app instance, and starts the server.
 import express from "express";
-import connectDB from "./config/db.js";
+import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import path from "path"
 
@@ -9,7 +9,20 @@ import notesRoutes from "./routes/notesRoutes.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import cors from "cors"
 
+process.on("unhandledRejection", err => {
+    console.error("Unhandled Rejection:", err);
+    process.exit(1);
+});
+
+process.on("uncaughtException", err => {
+    console.error("Uncaught Exception:", err);
+    process.exit(1);
+});
+
+
 dotenv.config(); // Load environment variables from .env file
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5001; // Default port is 5001 if not specified in environment variables
@@ -46,5 +59,8 @@ connectDB().then(() => { //1st connect db then, listen - better option
         console.log(`Server started running on PORT ${PORT}`);
     });
 });
+
+console.log("MONGO_URI:", process.env.MONGO_URI);
+console.log("REDIS_URL:", process.env.UPSTASH_REDIS_REST_URL);
 
 
