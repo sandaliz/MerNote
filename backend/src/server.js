@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import path from "path"
 
 import notesRoutes from "./routes/notesRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import cors from "cors"
 
@@ -29,20 +30,23 @@ const PORT = process.env.PORT || 5001; // Default port is 5001 if not specified 
 const __dirname = path.resolve();
 
 //middleware
+app.use(express.json()); //this will send req to ctrller
+
 if (process.env.NODE_ENV !== "production") {
     app.use(cors({
         origin: "http://localhost:5173"
     }))
 }
-app.use(express.json()); //this will send req to ctrller
+
 app.use(rateLimiter);
+
+app.use("/api/notes", notesRoutes);
+app.use("/api/auth", authRoutes); //user signup/login routes
 
 // app.use ((req, res, next) => { //simple middleware 
 //     console.log(`Req method is ${req.method} & Req URL is: ${req.url}`); //on terminal
 //     next();
 // })
-
-app.use("/api/notes", notesRoutes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist"))) //__dirname will go to backend so here what we do is

@@ -1,20 +1,22 @@
+// routes/notesRoutes.js
 import express from "express";
-import { createNote, getAllNotes, updateNote, deleteNote, getNoteById } from "../controllers/notesController.js";
+import {
+    createNote,
+    getAllNotes,
+    getNoteById,
+    updateNote,
+    deleteNote
+} from "../controllers/notesController.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Middleware to parse JSON request bodies
+router.use(requireAuth); // 🔒 all routes below require login
+
 router.get("/", getAllNotes);
-
 router.get("/:id", getNoteById);
-
-// // This endpoint is used to create a new note
 router.post("/", createNote);
-
-// // This endpoint is used to get a note by its ID
 router.put("/:id", updateNote);
-
-// // This endpoint is used to delete a note by its ID
-router.delete("/:id", deleteNote)
+router.delete("/:id", deleteNote);
 
 export default router;
