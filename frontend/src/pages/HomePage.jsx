@@ -23,7 +23,7 @@ const HomePage = () => {
             } catch (error) {
                 if (error.response?.status === 429) {
                     setIsRateLimited(true);
-                } else {
+                } else if (error.response?.status !== 401) {
                     toast.error("Failed to load notes");
                 }
             } finally {

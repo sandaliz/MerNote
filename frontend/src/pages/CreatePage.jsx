@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from '../lib/axios';
+import { colorConfig, getBorderClass } from '../lib/colorConfig';
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [color, setColor] = useState("Sunshine");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate()
@@ -22,20 +24,22 @@ const CreatePage = () => {
     try {
       await axios.post("/notes", {
         title,
-        content
+        content,
+        color
       })
       toast.success("Note created successfully!");
       navigate("/")
     } catch (error) {
       console.log("Error creating note!", error);
-      if (error.response.status == 429) {
+      if (error.response?.status === 429) {
         toast.error("Slow down! You're creating notes too fast!", {
           duration: 4000,
           icon: "💀",
-        }
-        )
+        })
+      } else if (error.response?.status === 401) {
+        toast.error("You need to log in to create notes!");
       } else {
-        toast.error("Failed to create note! Please try again later!");
+        toast.error(error.response?.data?.message || "Failed to create note! Please try again later!");
       }
     } finally {
       setLoading(false)
@@ -55,28 +59,61 @@ const CreatePage = () => {
               <h2 className='card-title text-2xl mb-4'>Create new note </h2>
               <form onSubmit={handleSubmit}>
                 <div className='form-control mb-4'>
-                  <label className='label'>
+                  <label htmlFor='title' className='label'>
                     <span className='label-text'>Title</span>
                   </label>
-                  <input type="text"
+                  <input 
+                    id='title'
+                    name='title'
+                    type="text"
                     placeholder='Note Title'
                     className='input input-bordered'
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}>
-
-                  </input>
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 </div>
                 <div className='form-control mb-4'>
-                  <label className='label'>
+                  <label htmlFor='content' className='label'>
                     <span className='label-text'>Content</span>
                   </label>
-                  <input type="text"
+                  <input 
+                    id='content'
+                    name='content'
+                    type="text"
                     placeholder='Note Content'
                     className='input input-bordered'
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}>
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                </div>
+                
+                {/* Color Preview */}
+                <div className='mb-6'>
+                  <div className={`card bg-base-100 border-t-4 border-solid ${getBorderClass(color)}`}>
+                    <div className='card-body'>
+                      <h3 className='card-title text-lg'>{title || 'Note Preview'}</h3>
+                      <p className='text-base-content/70'>{content || 'Your note content will appear here...'}</p>
+                    </div>
+                  </div>
+                </div>
 
-                  </input>
+                <div className='form-control mb-4'>
+                  <label className='label'>
+                    <span className='label-text'>Pick a color for your mood</span>
+                  </label>
+                  <div className='flex gap-3 flex-wrap'>
+                    {colorConfig.map((c) => (
+                      <button
+                        key={c.name}
+                        type='button'
+                        onClick={() => setColor(c.name)}
+                        className={`btn btn-sm btn-${c.daisyUI} gap-1 ${color === c.name ? 'ring-2 ring-offset-2 ring-current' : 'opacity-70'}`}
+                      >
+                        <span>{c.emoji}</span>
+                        <span>{c.name}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 <div className='card-actions justify-end' >
                   <button type="submit" className='btn btn-primary' disabled={loading}>

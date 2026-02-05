@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import api from '../lib/axios'
 import toast from 'react-hot-toast'
 import { Trash2Icon, ArrowLeftIcon, LoaderIcon } from 'lucide-react'
+import { colorConfig, getBorderClass } from '../lib/colorConfig'
 
 const NoteDetailPage = () => {
   const [note, setNote] = useState(null);
@@ -115,6 +116,35 @@ const NoteDetailPage = () => {
                   value={note.content}
                   onChange={(e) => setNote({ ...note, content: e.target.value })}
                 />
+              </div>
+
+              {/* Color Preview */}
+              <div className="mb-6">
+                <div className={`card bg-base-100 border-t-4 border-solid ${getBorderClass(note.color || "Sunshine")}`}>
+                  <div className="card-body">
+                    <h3 className="card-title text-lg">{note.title || 'Note Preview'}</h3>
+                    <p className="text-base-content/70">{note.content || 'Your note content will appear here...'}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-control mb-4">
+                <label className="label">
+                  <span className="label-text">Pick a color for your mood</span>
+                </label>
+                <div className="flex gap-3 flex-wrap">
+                  {colorConfig.map((c) => (
+                    <button
+                      key={c.name}
+                      type="button"
+                      onClick={() => setNote({ ...note, color: c.name })}
+                      className={`btn btn-sm btn-${c.daisyUI} gap-1 ${note.color === c.name ? 'ring-2 ring-offset-2 ring-current' : 'opacity-70'}`}
+                    >
+                      <span>{c.emoji}</span>
+                      <span>{c.name}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="card-actions justify-end">

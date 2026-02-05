@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    name: {
+        type: String,
+        default: "",
+        trim: true,
+    },
 },
     { timestamps: true } // gives createdAt and updatedAt fields
 );

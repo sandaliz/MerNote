@@ -8,6 +8,7 @@ const noteSchema = new mongoose.Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // 👈 link to user
+    color: { type: String, default: "Sunshine", enum: ["Sunset", "Ocean", "Forest", "Lavender", "Rose", "Sunshine", "Mint"] },
 }, { timestamps: true });
 
 

@@ -116,7 +116,7 @@ const Navbar = ({ searchQuery, setSearchQuery }) => {
                                         <p className="text-sm font-semibold">👤 {user.username}</p>
                                         <p className="text-xs text-muted">{user.email}</p>
                                         <hr className="my-2" />
-                                        <button className="btn btn-sm w-full">View Profile</button>
+                                        <Link to="/profile" className="btn btn-sm w-full">View Profile</Link>
                                         <button className="btn btn-sm w-full btn-ghost" onClick={handleLogout}>
                                             Logout
                                         </button>

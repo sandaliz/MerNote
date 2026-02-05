@@ -7,6 +7,7 @@ import path from "path"
 
 import notesRoutes from "./routes/notesRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import cors from "cors"
 
@@ -42,6 +43,7 @@ app.use(rateLimiter);
 
 app.use("/api/notes", notesRoutes);
 app.use("/api/auth", authRoutes); //user signup/login routes
+app.use("/api/profile", profileRoutes); //user profile routes
 
 // app.use ((req, res, next) => { //simple middleware 
 //     console.log(`Req method is ${req.method} & Req URL is: ${req.url}`); //on terminal

@@ -1,6 +1,10 @@
 import ratelimit from "../config/upstash.js" //backend/src/config/upstash.js
 
 const rateLimiter = async (req, res, next) => {
+    // Skip rate limiting in development if no internet
+    if (process.env.NODE_ENV !== "production") {
+        return next();
+    }
 
     try {
         const key = req.ip || "global"; // fallback

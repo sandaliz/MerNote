@@ -4,6 +4,7 @@ import React from 'react'
 import { formatDate } from '../lib/utils';
 import api from '../lib/axios';
 import toast from 'react-hot-toast';
+import { getBorderClass } from '../lib/colorConfig';
 
 const NoteCard = ({ note, setNotes }) => {
 
@@ -23,7 +24,7 @@ const NoteCard = ({ note, setNotes }) => {
 
     return (
         <Link to={`/note/${note._id}`}
-            className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-[#00FF9D]">
+            className={`card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-4 border-solid ${getBorderClass(note.color || "Sunshine")}`}>
 
             <div className='card-body '>
                 <h3 className='card-title text-base-content '>{note.title}</h3>

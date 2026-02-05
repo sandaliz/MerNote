@@ -1,4 +1,5 @@
 // controllers/notesController.js
+import Note from "../models/Note.js";
 
 // Get all notes for logged-in user only
 export async function getAllNotes(req, res) {
@@ -22,21 +23,25 @@ export async function getNoteById(req, res) {
 
 export async function createNote(req, res) {
     try {
-        const { title, content } = req.body;
-        const note = new Note({ title, content, user: req.user._id });
+        const { title, content, color } = req.body;
+        if (!title || !content) {
+            return res.status(400).json({ message: "Title and content are required!" });
+        }
+        const note = new Note({ title, content, color: color || "Sunshine", user: req.user._id });
         const savedNote = await note.save();
         res.status(201).json(savedNote);
     } catch (error) {
+        console.error("Create note error:", error);
         res.status(500).json({ message: "Internal Server Error!" });
     }
 }
 
 export async function updateNote(req, res) {
     try {
-        const { title, content } = req.body;
+        const { title, content, color } = req.body;
         const updatedNote = await Note.findOneAndUpdate(
             { _id: req.params.id, user: req.user._id },
-            { title, content },
+            { title, content, color },
             { new: true }
         );
         if (!updatedNote) return res.status(404).json({ message: "Note not found!" });
