@@ -1,97 +1,143 @@
 # MerNote
-MERN Notes webapp
 
-## Setup and Installation
+A modern, elegant notes application built with the MERN stack. Create, organize, and manage your personal notes with a beautiful responsive interface.
 
-1. Clone the repository and navigate to the project directory
+## Features
 
-2. Install dependencies for the entire project:
-```bash
-npm install
-```
+- **Note Management**: Create, read, update, and delete notes effortlessly
+- **User Authentication**: Secure login and signup with JWT tokens
+- **Modern UI**: Clean, responsive design using TailwindCSS and DaisyUI
+- **Search Functionality**: Find notes quickly with real-time search
+- **Rate Limiting**: Built-in API protection for better performance
 
-3. Install dependencies for backend and frontend:
-```bash
-npm install --prefix backend
-npm install --prefix frontend
-```
+## Tech Stack
 
-## Running the Application
+### Frontend
+- **React 19** - Modern React with latest features
+- **Vite** - Fast development build tool
+- **TailwindCSS** - Utility-first CSS framework
+- **DaisyUI** - Component library for TailwindCSS
+- **React Router** - Client-side routing
+- **Lucide React** - Beautiful icons
 
-### Option 1: Run both servers concurrently
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express** - Web framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
+- **JWT** - Authentication tokens
+- **bcrypt** - Password hashing
+- **CORS** - Cross-origin resource sharing
+
+## Quick Start
+
+### Prerequisites
+- Node.js (v18 or higher)
+- MongoDB (local or Atlas)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd MERN-1st
+   ```
+
+2. **Install dependencies**
+   ```bash
+   # Install root dependencies
+   npm install
+   
+   # Install backend dependencies
+   npm install --prefix backend
+   
+   # Install frontend dependencies
+   npm install --prefix frontend
+   ```
+
+3. **Environment Setup**
+   Create a `.env` file in the `backend` directory:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
+
+### Running the Application
+
+#### Option 1: Both servers (Recommended)
 ```bash
 npm run dev
 ```
 
-### Option 2: Run servers separately
-
-**Backend (Terminal 1):**
+#### Option 2: Separate terminals
 ```bash
+# Terminal 1 - Backend
 npm run dev --prefix backend
-```
-The backend will run on `http://localhost:5001`
 
-**Frontend (Terminal 2):**
-```bash
+# Terminal 2 - Frontend  
 npm run dev --prefix frontend
 ```
-The frontend will run on `http://localhost:5173`
 
-### Option 3: Direct node execution
+## Application Access
 
-**Backend:**
-```bash
-cd backend && node src/server.js
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:5001
+
+## Project Structure
+
+```
+MERN-1st/
+|-- backend/
+|   |-- src/
+|   |   |-- config/     # Database and server configuration
+|   |   |-- controllers/ # Route controllers
+|   |   |-- middleware/  # Custom middleware
+|   |   |-- models/      # MongoDB models
+|   |   |-- routes/      # API routes
+|   |   |-- server.js    # Server entry point
+|   |-- package.json
+|
+|-- frontend/
+|   |-- src/
+|   |   |-- components/  # Reusable UI components
+|   |   |-- pages/       # Page components
+|   |   |-- lib/         # Utilities and API calls
+|   |   |-- App.jsx      # Main app component
+|   |-- package.json
+|
+|-- README.md
+|-- package.json
 ```
 
-**Frontend:**
-```bash
-cd frontend && npm run dev
-```
+## API Endpoints
 
-## Tech Stack
+### Authentication
+- `POST /api/auth/register` - User signup
+- `POST /api/auth/login` - User login
 
-- **Frontend**: React 19, Vite, TailwindCSS, DaisyUI
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
-- **Authentication**: JWT, bcrypt
-
-## Features
-
-- Create, read, update, and delete notes
-- User authentication and authorization
-- Modern, responsive UI with TailwindCSS
-- Real-time updates
-
-## Access
-
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5001
+### Notes
+- `GET /api/notes` - Get all user notes
+- `POST /api/notes` - Create new note
+- `GET /api/notes/:id` - Get specific note
+- `PUT /api/notes/:id` - Update note
+- `DELETE /api/notes/:id` - Delete note
 
 ## Troubleshooting
 
-### CORS Issues
-If you encounter CORS errors when using browser preview or different ports, the backend is configured to allow requests from:
-- `http://localhost:5173` (default Vite dev server)
-- `http://127.0.0.1:64116` (browser preview)
-- `http://localhost:3000` (alternative port)
+### Common Issues
 
-To add more origins, update the CORS configuration in `backend/src/server.js`:
-```javascript
-app.use(cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:64116", "http://localhost:3000", "YOUR_ORIGIN_HERE"]
-}))
-```
+**CORS Errors**
+The backend is configured for common development origins. Add your origin in `backend/src/server.js` if needed.
 
-### Server Not Starting
-- Ensure MongoDB is running
-- Check if ports 5001 and 5173 are available
-- Verify all dependencies are installed
+**Port Conflicts**
+Ensure ports 5001 (backend) and 5173 (frontend) are available.
 
-### Dependencies Issues
-If npm scripts fail, try:
+**MongoDB Connection**
+Verify your MongoDB connection string in the `.env` file.
+
+**Dependency Issues**
 ```bash
+# Clean install
 npm install --force
-# Or reinstall specific packages
-npm uninstall vite && npm install vite
+npm run build
 ```
