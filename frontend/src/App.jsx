@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <div className="relative h-full w-full flex flex-col" >
+    <div className="relative min-h-screen w-full flex flex-col" >
       <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background: radial-gradient
 (125%_125%_at_50%_10%, #000_60%, #00FF9D40_100%)]"> </div>
       <Routes>
@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Routes>
-      <Footer />
+      <div className="mt-auto"><Footer /></div>
     </div>
   )
 }

@@ -35,7 +35,7 @@ app.use(express.json()); //this will send req to ctrller
 
 if (process.env.NODE_ENV !== "production") {
     app.use(cors({
-        origin: "http://localhost:5173"
+        origin: ["http://localhost:5173", "http://127.0.0.1:64116", "http://localhost:3000"]
     }))
 }
 

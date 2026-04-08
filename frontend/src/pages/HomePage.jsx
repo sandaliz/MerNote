@@ -44,13 +44,13 @@ const HomePage = () => {
     });
 
     return (
-        <div className="min-h-screen">
+        <div className="flex-grow">
             {/* Pass search state down to Navbar */}
             <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
             {/* Add Note Button under navbar */}
             {!loading && !isRateLimited && filteredNotes.length > 0 && (
-                <div className="max-w-7xl mx-auto px-4 mt-6 flex justify-end">
+                <div className="max-w-7xl mx-auto px-4 mt-2 flex justify-end">
                     <Link to="/create" className="btn btn-primary flex items-center gap-2">
                         <PlusIcon className="w-4 h-4" />
                         <span className="hidden sm:inline">New Note</span>
@@ -60,7 +60,7 @@ const HomePage = () => {
 
             {!loading && isRateLimited && <RateLimitedUI />}
 
-            <div className="max-w-7xl mx-auto p-4 mt-6">
+            <div className="max-w-7xl mx-auto p-4 mt-2">
                 {loading && (
                     <div className="flex justify-center items-center flex-col py-10 gap-2">
                         <span className="loading loading-spinner loading-md text-primary"></span>
@@ -73,7 +73,7 @@ const HomePage = () => {
                 )}
 
                 {!loading && filteredNotes.length > 0 && !isRateLimited && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredNotes.map((note) => {
                             try {
                                 return <NoteCard key={note._id} note={note} setNotes={setNotes} />;

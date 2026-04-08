@@ -2,8 +2,8 @@ import { Github, Heart } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-base-300 border-t border-base-content/10 mt-12 w-full">
-      <div className="mx-auto max-w-7xl px-4 py-8">
+    <footer className="bg-base-300 border-t border-base-content/10 mt-4 w-full">
+      <div className="mx-auto max-w-7xl px-4 py-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
           {/* Left: Branding */}
           <div className="flex flex-col gap-2">
