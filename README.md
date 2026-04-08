@@ -122,22 +122,4 @@ MERN-1st/
 - `PUT /api/notes/:id` - Update note
 - `DELETE /api/notes/:id` - Delete note
 
-## Troubleshooting
 
-### Common Issues
-
-**CORS Errors**
-The backend is configured for common development origins. Add your origin in `backend/src/server.js` if needed.
-
-**Port Conflicts**
-Ensure ports 5001 (backend) and 5173 (frontend) are available.
-
-**MongoDB Connection**
-Verify your MongoDB connection string in the `.env` file.
-
-**Dependency Issues**
-```bash
-# Clean install
-npm install --force
-npm run build
-```
