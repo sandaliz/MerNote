@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-// 1- create schema
-// 2- a model based off of that schema
-
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -25,8 +22,16 @@ const userSchema = new mongoose.Schema({
         default: "",
         trim: true,
     },
+    resetPasswordToken: {
+        type: String,
+        default: null,
+    },
+    resetPasswordExpires: {
+        type: Date,
+        default: null,
+    },
 },
-    { timestamps: true } // gives createdAt and updatedAt fields
+    { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);

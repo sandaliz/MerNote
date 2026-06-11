@@ -56,9 +56,9 @@ const Navbar = ({ searchQuery, setSearchQuery }) => {
             <div className="mx-auto max-w-7xl px-4 py-4">
                 <div className="flex items-center justify-between">
                     {/* Left: Logo */}
-                    <h1 className="text-xl sm:text-3xl font-bold text-primary font-mono tracking-tight">
+                    <Link to="/" className="text-xl sm:text-3xl font-bold text-primary font-mono tracking-tight no-underline">
                         MerNote
-                    </h1>
+                    </Link>
 
                     {/* Right: Search + Theme + Auth */}
                     <div className="flex items-center gap-2 sm:gap-4 relative mr-1 sm:mr-4" ref={profileRef}>
