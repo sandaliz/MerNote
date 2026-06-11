@@ -32,7 +32,7 @@ const ProfilePage = () => {
       } catch (error) {
         console.log("Error fetching profile:", error);
         toast.error("Failed to load profile!");
-        navigate("/");
+        navigate("/notes");
       } finally {
         setLoading(false);
       }
@@ -95,7 +95,7 @@ const ProfilePage = () => {
       
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
-          <Link to="/" className="btn btn-ghost mb-8 hover:bg-base-300">
+          <Link to="/notes" className="btn btn-ghost mb-8 hover:bg-base-300">
             <ArrowLeftIcon className="size-5" />
             Back to Notes
           </Link>
