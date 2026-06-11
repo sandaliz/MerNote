@@ -50,12 +50,21 @@ app.use("/api/profile", profileRoutes); //user profile routes
 //     next();
 // })
 
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname, "../frontend/dist"))) //__dirname will go to backend so here what we do is
+//     //go one up then tell it to go to frontend folder and use its dst as a static
+
+//     app.get("*", (req, res) => {
+//         res.sendFile(path.join(__dirname, "../frontend/", "dist", "index.html"))
+//     });
+// }
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../frontend/dist"))) //__dirname will go to backend so here what we do is
-    //go one up then tell it to go to frontend folder and use its dst as a static
+    const frontendPath = path.resolve("frontend/dist");
+
+    app.use(express.static(frontendPath));
 
     app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname, "../frontend/", "dist", "index.html"))
+        res.sendFile(path.join(frontendPath, "index.html"));
     });
 }
 
